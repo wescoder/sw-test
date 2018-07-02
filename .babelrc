@@ -1,0 +1,48 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        ["@babel/preset-env", { "targets": { "node": "current" } }],
+        ["next/babel", {
+          "preset-env": {
+            "modules": false,
+            "loose": true
+          }
+        }]
+      ]
+    },
+    "production": {
+      "presets": [
+        ["@babel/preset-env", { "targets": { "node": "current" } }],
+        ["next/babel", {
+          "preset-env": {
+            "modules": false,
+            "loose": true
+          }
+        }]
+      ]
+    },
+    "integration": {
+      "presets": [
+        ["@babel/preset-env", { "targets": { "node": "current" } }],
+        ["next/babel", {
+          "preset-env": {
+            "modules": "commonjs",
+            "loose": true
+          }
+        }]
+      ]
+    },
+    "test": {
+      "presets": [
+        ["@babel/preset-env", { "targets": { "node": "current" } }],
+        ["next/babel", {
+          "preset-env": {
+            "modules": "commonjs",
+            "loose": true
+          }
+        }]
+      ]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "sw-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=development node index.js"
+  },
+  "author": "Wésley Queiroz <wesley.coder@gmail.com> (https://github.com/wescoder)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "next": "^6.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "sw-precache-webpack-plugin": "^0.11.5",
+    "webpack": "^3.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/polyfill": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-react": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
+    "babel-core": "^7.0.0-bridge.0",
+    "devcert": "^1.0.0"
+  }
+}
