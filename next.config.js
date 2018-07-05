@@ -1,6 +1,8 @@
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin-loader')
+const mkdirp = require('mkdirp')
 const { DefinePlugin } = require('webpack')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const { resolve } = require('path')
+
 const paths = require('./config/paths')
 const ENV = require('./config/env')
 const { ANALYZE } = process.env
@@ -13,26 +15,28 @@ let config = {
       'process.env': JSON.stringify(ENV)
     }))
 
+    const SW_PATH = resolve('./.next/static')
+    mkdirp(SW_PATH) // ensure the folder exists before next creates it otherwise sw-precache will break the build
+
     config.plugins.push(new SWPrecacheWebpackPlugin({
       cacheId: 'sw-test',
-      filepath: resolve('./.next/static/sw.js'),
-      mergeStaticsConfig: true,
+      filepath: `${SW_PATH}/sw.js`,
       minify: true,
       navigateFallback: ENV.PUBLIC_URL,
+      mergeStaticsConfig: false,
+      handleFetch: !dev,
       staticFileGlobs: [
-        '.next/main.js',
-        '.next/dist/bundles/**/!(_document)*.js',
+        '.next/bundles/**/*.js',
         '.next/static/**/*.{js,css,jpg,jpeg,png,svg,gif}'
       ],
       staticFileGlobsIgnorePatterns: [/_.*\.js$/, /\.map/],
       stripPrefixMulti: {
-        '.next/dist/bundles/pages/': `/_next/${buildId}/page/`,
-        '.next/static/': '/_next/static/',
-        '.next/': `/_next/${buildId}/`
+        '.next/bundles/pages/': `/_next/${buildId}/page/`,
+        '.next/static/': '/_next/static/'
       },
       runtimeCaching: [
         { handler: 'fastest', urlPattern: /[.](jpe?g|png|svg|gif)/ },
-        { handler: 'networkFirst', urlPattern: /^https.*/ }
+        { handler: 'networkFirst', urlPattern: /^https.*(js|css)/ }
       ],
       templateFilePath: resolve('./components/service-worker.js.ejs'),
       verbose: true

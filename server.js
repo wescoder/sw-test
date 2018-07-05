@@ -19,7 +19,6 @@ export const serve = async (isSSL = IS_SSL, isProd = IS_PROD, port = APP_PORT, a
 
     if (staticRoutes.includes(pathname)) {
       const filePath = resolve(`.next/static${pathname}`)
-      console.log(filePath)
 
       app.serveStatic(req, res, filePath)
     } else {
